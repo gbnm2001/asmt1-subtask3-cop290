@@ -54,7 +54,8 @@ void* subtractor(void* dat);
 
 
 int main(int argc,char* argv[]){
-
+    time_t start, end;
+    time(&start);
     VideoCapture cap("trafficvideo.mp4");
     if (!cap.isOpened()){
         cout<<"\nerror reading the video\n";
@@ -142,6 +143,8 @@ int main(int argc,char* argv[]){
     
     table.close();
     cout<<"done\n";
+    time(&end);
+    cout<<"Execution Time = "<<(double)(end-start)<<"sec\n";
     
 }   
 
