@@ -12,14 +12,14 @@ using namespace std;
 using namespace cv;
 
 //make all the required variables as global variables
-//change all the numbers where 7 is written to any number to use that many threads.
+//change all the numbers where 2 is written to any number to use that many threads.
 //best result(accuracy,runtime) is obtained for no_threads=2
-int no_threads = 7;
+int no_threads = 2;
 
-int QD[7];
-int DD[7];
-bool tfree[7];
-Mat frames[7];
+int QD[2];
+int DD[2];
+
+Mat frames[2];
 
 Mat imgdiff;
 Mat h;
@@ -33,15 +33,6 @@ int fm_count=1;
 bool doing = true;
 ofstream table("m4.txt");
 pthread_mutex_t* mutex1;
-
-bool allow(){
-    for (int i=0; i<no_threads; i++){
-        
-        if (tfree[i] ){return true;}
-    }
-    return false;
-
-}
 
 void* subtractor(void *id);
 
@@ -81,7 +72,6 @@ int main(int argc,char* argv[]){
 
     
     table<< "time , queue density , dynamic density\n";
-    string sr="shit\n";
     cout << "running\n";
 
     pthread_mutex_t mutex_var1;
@@ -93,7 +83,7 @@ int main(int argc,char* argv[]){
 
     for(int i=0; i<no_threads; i++){
         IDs[i]=i;
-        tfree[i]=true;
+        
         if(0!=pthread_create(&threads[i], NULL, subtractor, &IDs[i])){cout<<"error creating thread1\n";}
     }
 
@@ -160,8 +150,6 @@ void* subtractor(void *ID){
 
     while (doing){
         if (fm_count % (5*no_threads) == (5*id+2)){
-
-            tfree[id]=false;
             //table<<fm_count-1;
             warpPerspective(frames[id], warp_frame, h, back_image.size());
 
@@ -191,7 +179,6 @@ void* subtractor(void *ID){
             //table << ',' << qd/320000.0 << ',' << dd/320000.0 << endl;
             //pthread_mutex_unlock(mutex1);
 
-            tfree[id]=true;
         }
     }
    pthread_exit(NULL);
