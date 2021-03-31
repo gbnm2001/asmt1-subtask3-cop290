@@ -1,0 +1,7 @@
+set xlabel "Queue density utility"
+set ylabel "Runtime"
+set xrange [98.9:99.9]
+set yrange [44:70]
+set terminal png enhanced size 960, 720
+set output "method2.png"
+plot "m2" using 1:2:(sprintf("%dx%d", $3,$4)) with labels point lt 7 offset char -3 title "Method2", (58.7349) lt 0 lw 2 title "baseline", "m2" notitle lt 7 lc 14 w lines
