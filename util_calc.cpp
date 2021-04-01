@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 using namespace std;
-
+//the function split, splits the string wrt ',' and outputs a vector of strings
 vector<string> split(string str) {
     vector<string> arr;
     int n = str.size();
@@ -39,12 +39,12 @@ int main(int argc, char* argv[]){
    while(getline(original,ol) && getline(optimised,nl)){
       line_no++;
       if(line_no == 1){continue;}
-      ov = split(ol);
-      nv = split(nl);
-      qdo = stod ((ov.at(1)));
-      ddo = stod ((ov.at(2)));
-      qdn = stod ((nv.at(1)));
-      ddn = stod ((nv.at(2)));
+      ov = split(ol);   //ol - line from the subtask 2 ouput
+      nv = split(nl);   //nl - corresponding line in the new output
+      qdo = stod ((ov.at(1)));  //queue density of subask 2
+      ddo = stod ((ov.at(2)));  //dynamic density of subtask 2
+      qdn = stod ((nv.at(1)));  //new queue density
+      ddn = stod ((nv.at(2)));  //new dynamic density
       if(qdo==0.0){
         qderror+=qdn;
       }else{
